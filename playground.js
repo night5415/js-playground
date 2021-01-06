@@ -1,4 +1,4 @@
-var arr = [
+const books = [
   { userId: 1, id: 1, title: "delectus aut autem", completed: false },
   {
     userId: 1,
@@ -35,31 +35,59 @@ var arr = [
     completed: true,
   },
 ];
+
 /**
  * Let's use map to take what we want from the above array
  * and add a few things 😀
  */
-var arr1 = arr.map((u) => {
+const mappedArray = books.map((u) => {
   return {
     id: `m-${u.id}`,
     userId: u.userId,
-    name: u.title,
+    title: u.title,
     from: "web",
     editor: { name: "Mike", age: 99 },
   };
 });
+/**
+ * This is the same as above, but using the shorthand operator,
+ * notice the parenthesis around the anonymous object.
+ */
+const mappedArrayShorthand = books.map((u) => ({
+  id: `m-${u.id}`,
+  userId: u.userId,
+  title: u.title,
+  from: "web",
+  editor: { name: "Mike", age: 99 },
+}));
 
-console.log(arr1);
+console.log(mappedArray);
 
-//object destructure
-var obj = arr1[0];
+//object destructuring
+const unpackedObj = mappedArray[0];
 /**
  * Lest take out a couple properties of the above object and give name a alias of bookTitle
  */
 const {
   userId,
-  name: bookTitle,
-  editor: { age },
-} = obj;
+  title: bookTitle,
+  editor: { age, name }, //nested object
+  noVal = true,
+} = unpackedObj;
 
-console.log(`${userId} is ${age} and has a value of ${bookTitle}`);
+const output = `${name} is ${age} old; and is the editor of '${bookTitle}'.. ${
+  noVal ? "has value" : "no value"
+}`;
+console.log(output);
+
+/**
+ * Lets talk about the spread operator, not a huge fan but people do use it
+ */
+
+function getName(a, b, c) {
+  console.log(a);
+  console.log(b);
+  console.log(c);
+}
+
+getName(...books);
